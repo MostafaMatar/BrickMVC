@@ -1,5 +1,5 @@
 <!ELEMENT brick-application (service*)>
-<!ELEMENT service (url-pattern,validation-class?,service-class)>
+<!ELEMENT service (url-pattern,validation-class,service-class)>
 <!ELEMENT url-pattern (#PCDATA)>
 <!ELEMENT validation-class (#PCDATA)>
 <!ELEMENT service-class (#PCDATA)>
