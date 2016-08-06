@@ -8,6 +8,7 @@ BrickMVC is a lightweight, MVC,basic java web framework. It's developed as an ed
 <ul>
 <li>MVC structure for your web project</li>
 <li>Separate your validation code from your business logic</li>
+<li>Multiple Controllers to handle a request</li>
 <li>XML configuration for your project</li>
 <li>Very Lightweight</li>
 </ul>
@@ -15,7 +16,6 @@ BrickMVC is a lightweight, MVC,basic java web framework. It's developed as an ed
 <h3>Planned Future Features</h3>
 <ul>
 <li>Support for Error Pages</li>
-<li>Multiple Controllers to handle a request</li>
 </ul>
 
 <h3>How to use BrickMVC</h3>
