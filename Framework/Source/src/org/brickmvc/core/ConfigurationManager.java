@@ -1,5 +1,6 @@
 package org.brickmvc.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,6 +19,7 @@ import java.io.IOException;
 /**
  * A class responsible for reading configuration files and represent them in
  * code
+ * 
  * @author Mostafa
  * 
  */
@@ -29,18 +31,17 @@ public class ConfigurationManager {
 	 * @param configurationFile
 	 *            the path to the configuration file
 	 * @return a map representing the configuration file
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public static Map<String, String> loadConfigurationFile(
-			String configurationFile) throws Exception {
+	public static Map<String, ArrayList<String>> loadConfigurationFile(String configurationFile) throws Exception {
 
 		try {
-			Map<String, String> configuration = new HashMap<String, String>();
-			File fXmlFile = new File(configurationFile);
+			Map<String, ArrayList<String>> configuration = new HashMap<String, ArrayList<String>>();
+			File xmlFile = new File(configurationFile);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(fXmlFile);
+			Document doc = dBuilder.parse(xmlFile);
 			doc.getDocumentElement().normalize();
 			NodeList serviceList = doc.getElementsByTagName("service");
 			for (int i = 0; i < serviceList.getLength(); i++) {
@@ -49,7 +50,7 @@ public class ConfigurationManager {
 					continue;
 				NodeList serviceInners = service.getChildNodes();
 				String serviceUrl = "";
-				String serviceClass = "";
+				ArrayList<String> serviceClasses = new ArrayList<String>();
 				String validationClass = "";
 				for (int j = 0; j < serviceInners.getLength(); j++) {
 					Node serviceInner = serviceInners.item(j);
@@ -57,18 +58,28 @@ public class ConfigurationManager {
 					if (itemName.equals("url-pattern")) {
 						serviceUrl = serviceInner.getTextContent().trim();
 					} else if (itemName.equals("validation-class")) {
-						validationClass += serviceInner.getTextContent().trim();
+						validationClass = serviceInner.getTextContent().trim();
 					} else if (itemName.equals("service-class")) {
-						serviceClass += (serviceInner.getTextContent().trim());
+						serviceClasses.add(serviceInner.getTextContent().trim());
 					} else
 						continue;
 				}
-				if (!serviceUrl.equals("") && !serviceClass.equals("") && !validationClass.equals(""))
-					configuration.put(serviceUrl, validationClass + ","
-							+ serviceClass);
-				else if(!serviceUrl.equals("") && !serviceClass.equals("") && validationClass.equals(""))
-					configuration.put(serviceUrl,serviceClass);
-				else 
+				if (!serviceUrl.equals("") && !serviceClasses.isEmpty()) {
+					String classes="";
+					ArrayList<String> allClasses=new ArrayList<String>();
+					for (String serviceClass : serviceClasses) {
+						classes += (serviceClass + ",");
+					}
+					if (!validationClass.equals("")){ 
+						allClasses.add(validationClass);
+						allClasses.add(classes.substring(0,classes.lastIndexOf(",")));
+						configuration.put(serviceUrl,allClasses);
+					}
+					else{
+						allClasses.add(classes.substring(0,classes.lastIndexOf(",")));
+						configuration.put(serviceUrl, allClasses);
+					}
+				} else
 					continue;
 			}
 			return configuration;
