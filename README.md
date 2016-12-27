@@ -17,4 +17,4 @@ following method.
 
 ####Use the quick start template
 You can use the quick start template, HelloWorld, which contains a login page allowing you to enter a username and a password, a validation class that makes sure username exists and password is 4 to 8 characters long and redirects to failure page in case of invalid data, a service class that reads the username and saves it in the session to be displayed in a success page. </p>
-It's the quickest way to get started and make sure all configurations are correct and it's very useful to study this template and how it works to be able to customize and figure out how to use the framework.</p>
+It's the quickest way to get started and make sure all configurations are correct and it's very useful to study this template and how it works to be able to customize and figure out how to use the framework.
