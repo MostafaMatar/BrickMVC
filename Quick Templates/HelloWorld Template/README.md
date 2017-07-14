@@ -1,3 +1,3 @@
 <h3>HeloWorld Template</h3>
-<p>This template is a simple web application with a sign in page that goes through validation to make sure the username and password exist and the password is at least 4 characters and at most 8 characters.</p>
-<p>It has web pages to show the login form, error page, and success page. Also, it has a service class, a validation class, and the xml configuration file for the project</p>
+<p>This template is a simple single-service web application that displays a welcome message.</p>
+<p>You can use it as a starter for your projects.</p>
